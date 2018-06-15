@@ -4,17 +4,23 @@ from __future__ import division
 
 from future import standard_library
 standard_library.install_aliases()
+
 from builtins import range
 from past.utils import old_div
+
 import time
 from selenium import webdriver
+
 import urllib.request
 import urllib.error
 import urllib.parse
-from functools import wraps
-# import requests
 from urllib.parse import urlencode
+
+import requests
+
+from functools import wraps
 from fake_useragent import UserAgent
+
 import sys
 
 class AreaError(KeyError):
@@ -444,6 +450,14 @@ def get_html(url):
         print("Error accessing:", url)
         print(e)
         return None
+
+
+def get_html_requests(url):
+    ua = UserAgent()
+    headers = {"User-Agent": ua.random}
+
+    req = requests.get(url, headers=headers)
+    return req.text
 
 
 def write_html_to_file(html, filename):

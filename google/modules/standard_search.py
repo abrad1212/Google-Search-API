@@ -5,7 +5,7 @@ from future import standard_library
 standard_library.install_aliases()
 from builtins import range
 from builtins import object
-from .utils import _get_search_url, get_html
+from .utils import _get_search_url, get_html, get_html_requests
 from bs4 import BeautifulSoup
 import urllib.parse
 from urllib.parse import unquote, parse_qs, urlparse
@@ -66,7 +66,7 @@ def search(query, pages=1, lang='en', area='com', ncr=False, void=True, time_per
     results = []
     for i in range(pages):
         url = _get_search_url(query, i, lang=lang, area=area, ncr=ncr, time_period=time_period)
-        html = get_html(url)
+        html = get_html_requests(url)
 
         if html:
             soup = BeautifulSoup(html, "html.parser")
